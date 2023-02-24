@@ -1,0 +1,29 @@
+{
+  "name": "team_profile_html_generator",
+  "version": "1.0.0",
+  "description": "Team profile html generator",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vaselisk999/team_profile_html_generator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vaselisk999/team_profile_html_generator/issues"
+  },
+  "homepage": "https://github.com/vaselisk999/team_profile_html_generator#readme",
+  "dependencies": {
+    "inquirer": "^6.5.0"
+  },
+  "devDependencies": {
+    "jest": "^29.4.3"
+  }
+}
