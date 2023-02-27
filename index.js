@@ -5,112 +5,120 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
-const OUTPUT_DIR = path.resolve(__dirname, "output");
+// not in use
+const OUTPUT_DIR = path.resolve(__dirname, "/output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./src/page-template.js");
+//employees array
+const employeesArray = [];
 
-
-// TODO: Write Code to gather information about the development team members, and render the HTML file.
-
+//Manager prompt
 inquirer.prompt([
     {
         type: 'input',
         message: 'What is manager name?',
-        name: 'username',
+        name: 'manager_name',
     },
     {
-        type: 'password',
+        type: 'input',
         message: 'What is manager ID?',
-        name: 'password',
+        name: 'manager_ID',
     },
     {
-        type: 'password',
+        type: 'input',
         message: 'What is manager Email address?',
-        name: 'confirm',
+        name: 'manager_email',
     },
     {
-        type: 'password',
+        type: 'input',
         message: 'What is manager Office number?',
-        name: 'confirm',
+        name: 'manager_num',
     },
-]).then(response => {
-    // populate manager info
-    // promptForNexEmployee ()
-})
+]).then(({manager_name, manager_ID, manager_email, manager_num}) => {
+    employeesArray.push(new Manager(manager_name, manager_ID, manager_email, manager_num));
+    promptForNextEmployee();
+});
 
+//Next Employee prompt
 const promptForNextEmployee = () => {
-    inquirer.prompt([{
-        type: 'list',
-        message: 'Do you whant to add another Employee?',
-        name: 'confirm',
-        choices: ["engineer", "intern", "generate the team"],
-    }]).then(response => {
-        // if engineer
-        //    promptForEngineer
-        // else if intern
-        //    promptForIntern
-        // else
-        //    use the functionality from page-template to generate the team
+    inquirer.prompt([
+        {
+            type: 'list',
+            message: 'Do you whant to add another Employee?',
+            name: 'choice',
+            choices: ["engineer", "intern", "generate the team"],
+        }
+    ]).then(response => {
+        if (response.choice === "engineer") {
+            promptForEngineer();
+        } else if (response.choice === "intern") {
+            promptForIntern();
+        } else {
+            buildPage();
+        }
     })
 }
 
+//Engineer prompt
 const promptForEngineer = () => {
     inquirer.prompt([
         {
             type: 'input',
             message: 'What is engineer name?',
-            name: 'username',
+            name: 'engineer_name',
         },
         {
-            type: 'password',
+            type: 'input',
             message: 'What is engineer ID?',
-            name: 'password',
+            name: 'engineer_ID',
         },
         {
-            type: 'password',
+            type: 'input',
             message: 'What is engineer Email address?',
-            name: 'confirm',
+            name: 'engineer_email',
         },
         {
-            type: 'password',
+            type: 'input',
             message: 'What is engineer GitHub username?',
-            name: 'confirm',
+            name: 'engineer_github',
         },
-    ]).then(response => {
-        // add new engineer to employees array
-        // promptForNextEmployee
+    ]).then(({engineer_name, engineer_ID, engineer_email, engineer_github}) => {
+        employeesArray.push(new Engineer(engineer_name, engineer_ID, engineer_email, engineer_github));
+        promptForNextEmployee();
     })
 }
 
+//Intern prompt
 const promptForIntern = () => {
     inquirer.prompt([
         {
             type: 'input',
             message: 'What is intern name?',
-            name: 'username',
+            name: 'intern_name',
         },
         {
-            type: 'password',
+            type: 'input',
             message: 'What is intern ID?',
-            name: 'password',
+            name: 'intern_ID',
         },
         {
-            type: 'password',
+            type: 'input',
             message: 'What is intern Email address?',
-            name: 'confirm',
+            name: 'intern_email',
         },
         {
-            type: 'password',
+            type: 'input',
             message: 'What is intern School?',
-            name: 'confirm',
+            name: 'intern_school',
         },
-    ]).then(response => {
-        // add new intern to employees array
-        // promptForNextEmployee
+    ]).then(({intern_name, intern_ID, intern_email, intern_school})=> {
+        employeesArray.push(new Intern(intern_name, intern_ID, intern_email, intern_school));
+        promptForNextEmployee();
     })
 }
 
+// Builds html file
 const buildPage = () => {
-    // render(myArrayOfTeamMembers)
+    fs.writeFile(__dirname + "/output/team.html", render(employeesArray), (err) => err ? console.error(err) : console.log('Team generated'));
 }
