@@ -20,7 +20,7 @@
 
 * link to [Inquirer package](https://www.npmjs.com/package/inquirer).
 * link to [Jest package](https://www.npmjs.com/package/jest).
-* link to [video-guide](https://drive.google.com/file/d/1J_x-fCq8-ysSkveiweIbdckYIJ3cI0XA/view).
+* link to [video-guide](https://drive.google.com/file/d/13qd_fOn2LAuJwo0JyTMFeHcXOGWmIH7-/view).
 
 ## License
     
